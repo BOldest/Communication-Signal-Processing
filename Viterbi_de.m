@@ -1,8 +1,8 @@
 pkg load communications
 Randombits = [1 1 1 0 1 1 0 1 0 0 1 1 1 0 0 1];
-K = length(Randombits);
+K = 3
 function [predecessor_states,error_Table,optimum_path,data] = Viterbi_de(K,coded)
-%K denotes the constraint length and coded is the demodulated binary sequence
+%K denotes the constraint length (which is memory register + 1) and coded is the demodulated binary sequence
 %Intializing arrays essential for the state decoding process
 %The State Transition table: the next state given the current state and
 %input 
@@ -29,7 +29,8 @@ for i=0:length(predecessor_states)-1
     possible_outputs(possible_outputs~=0)=-1;
     possible_outputs(possible_outputs==0)=1;
     %Distance between received sequence and possible outputs
-    ham_distance= sum(abs(dec2bin(coded(i),2)-dec2bin(possible_outputs,2)),2);
+    %ham_distance= sum(abs(dec2bin(coded(i),2)- dec2bin(possible_outputs,2)),2);
+    %ham_distance = sum (xor([coded(2*i+1) coded(2*i+2)],[]).*1)
     euc_distance= sum([coded(2*i+1) coded(2*i+2)].*possible_outputs,2);
     %A variable to keep track if a state has aleady been updated during the loop
     flag=zeros(2^(K-1),1);
