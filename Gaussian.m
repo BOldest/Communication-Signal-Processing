@@ -1,7 +1,6 @@
 clc;
-
-function [gret,mret] = Gaussian(mat,rec)
-  mret=horzcat(mat,rec);
+function [gret,mret] = Gaussian(nmat,rec)
+  mret=horzcat(nmat,rec);
   [m,n]=size(mret); % m = rows , n= column
   for j=1:m-1 
       for z=2:m
@@ -26,10 +25,10 @@ function [gret,mret] = Gaussian(mat,rec)
   gret=x'
 endfunction
 % Main function
-mat= [3 4 -2 2
+t= [3 4 -2 2
       4 9 -3 2
       -2 -3 7 6 
       1 4 6 7 ];
 
 rec = [2;8;10;2];
-output = Gaussian(mat,rec);
+output = Gaussian(t,rec);
