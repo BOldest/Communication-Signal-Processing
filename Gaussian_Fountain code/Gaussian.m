@@ -32,3 +32,4 @@ t= [3 4 -2 2
 
 rec = [2;8;10;2];
 output = Gaussian(t,rec);
+
