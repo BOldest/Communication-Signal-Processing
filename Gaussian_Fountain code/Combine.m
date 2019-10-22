@@ -1,6 +1,12 @@
 clc;
-pkg load communications
-t =[
+clear all;
+close all;
+%pkg load communications
+
+rand('seed',123);
+randn('seed',456);
+
+code_matrix =[
 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 2, 0, 0, 0, 0, 0, 0, 
 0, 0, 0, 4, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 
 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 
@@ -443,79 +449,76 @@ t =[
 1, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 2, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 
 ];
-tn = dec2bin(oct2dec(t));
-code_matrix = reshape(tn,441,63);
-ip =[  0
-  1
-  0
-  1
-  0
-  1
-  0
-  1
-  0
-  0
-  1
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  0
-  0
-  0
-  1
-  0
-  0
-  0
-  1
-  1
-  0
-  0
-  1
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  1
-  0
-  1
-  1
-  0
-  1
-  0
-  1
-  1
-  1
-  1
-  0
-  1
-  1
-  0
-  0
-  0
-  1
-  0
-  1
-  0
-  0
-  0
-  0
-  1
-  0];
-en = code_matrix*ip;
-##en_out= bitxor(x,y)
-##for i =1:441
-##  en_outtemp= bitxor(nmat(i,:),ip')
-##  en_out(i)=en_outtemp
-##end
+tn = dec2bits(code_matrix,3);
+nmat = reshape(tn,441,63);
+ip = round(rand(1,63));
+%ip = ip';
+%ip =[ 
+%  0
+%  1
+%  0
+%  1
+%  0
+%  1
+%  0
+%  1
+%  0
+%  0
+%  1
+%  1
+%  0
+%  0
+%  0
+%  1
+%  0
+%  1
+%  0
+%  0
+%  0
+%  1
+%  0
+%  0
+%  0
+%  1
+%  1
+%  0
+%  0
+%  1
+%  1
+%  0
+%  0
+%  0
+%  1
+%  0
+%  1
+%  1
+%  0
+%  1
+%  1
+%  0
+%  1
+%  0
+%  1
+%  1
+%  1
+%  1
+%  0
+%  1
+%  1
+%  0
+%  0
+%  0
+%  1
+%  0
+%  1
+%  0
+%  0
+%  0
+%  0
+%  1
+%  0];
+en = nmat*ip';
 encoded_bits = mod(en,2);
-clc;
 
 function [gret,mret] = Gaus(co_m,rec)
   mret=horzcat(co_m,rec);
@@ -546,7 +549,7 @@ function [gret,mret] = Gaus(co_m,rec)
 endfunction
 
 
-output = Gaus(code_matrix,encoded_bits);
+output = Gaus(nmat,encoded_bits);
 
   
   
