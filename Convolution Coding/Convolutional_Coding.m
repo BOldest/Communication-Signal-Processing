@@ -1,4 +1,6 @@
 clc;
+close all;
+clear all;
 pkg load communications
 ##Randombits =(rand(1,16) > 0.5)
 Randombits = [1 1 1 0 1 1 0 1 0 0 1 1 1 0 0 0]
