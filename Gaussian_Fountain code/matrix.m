@@ -518,5 +518,5 @@ en = nmat*ip
 ##end
 encoded_b = mod(en,2);
 size(encoded_b)
-mret=horzcat(nmat,encoded_b)
+mret=horzcat(nmat,encoded_b);
 size(mret)
